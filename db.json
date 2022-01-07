@@ -1,0 +1,38 @@
+{
+  "posts": [
+    {
+      "label": "Dewangga",
+      "status": "draft",
+      "id": 1
+    },
+    {
+      "label": "Arhan",
+      "status": "draft",
+      "id": 2
+    },
+    {
+      "label": "Nadeo",
+      "status": "draft",
+      "id": 3
+    },
+    {
+      "label": "Lord Dedik",
+      "status": "done",
+      "id": 4
+    },
+    {
+      "label": "Egy MV",
+      "status": "draft",
+      "id": 5
+    },
+    {
+      "label": "Syahrian Abimanyu",
+      "status": "done",
+      "id": 6
+    }
+  ],
+  "comments": [],
+  "profile": {
+    "name": "typicode"
+  }
+}
