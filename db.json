@@ -5,14 +5,14 @@
       "label": "Egy MV ",
       "group": "draft",
       "id": 1,
-      "time": 1642574178733
+      "time": 1642579364486
     },
     {
       "sort": 2,
       "label": "Syahrian Abimanyu",
       "group": "review",
       "id": 2,
-      "time": 1642502319881
+      "time": 1642579520462
     },
     {
       "label": "Ahmad Cristiano",
@@ -26,21 +26,21 @@
       "group": "done",
       "sort": 4,
       "id": 4,
-      "time": 1642574181247
+      "time": 1642579613415
     },
     {
       "label": "Coba",
       "group": "draft",
       "sort": 5,
       "id": 5,
-      "time": 1642573329729
+      "time": 1642578895678
     },
     {
       "label": "sdfsdf",
-      "group": "draft",
+      "group": "COBA",
       "sort": 6,
       "id": 6,
-      "time": 1642573331821
+      "time": 1642578699192
     },
     {
       "label": "coba",
@@ -57,31 +57,31 @@
     {
       "name": "draft",
       "id": 1,
-      "sort": 2
+      "sort": 1
     },
     {
       "name": "done",
       "id": 2,
-      "sort": 5
+      "sort": 3
     },
     {
       "name": "review",
       "id": 3,
-      "sort": 4
+      "sort": 2
     },
     {
       "name": "halo",
-      "sort": 6,
+      "sort": 4,
       "id": 4
     },
     {
       "name": "baru",
       "id": 5,
-      "sort": 3
+      "sort": 5
     },
     {
       "name": "COBA",
-      "sort": 1,
+      "sort": 6,
       "id": 6
     }
   ]
