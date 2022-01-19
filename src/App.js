@@ -7,6 +7,8 @@ export default function App() {
   const [todos, setTodos] = useState([]);
   const [done, setDone] = useState([]);
   const [editTodo, setEditTodo] = useState(null);
+  const [group, setGroup] = useState([]);
+
   // const clr = editTodo && 'focus:ring-2 focus:ring-blue-600'   
   
 

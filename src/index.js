@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+import Falcon from './Falcon';
 import './index.css';
 import Todos from './newTodo';
 // import Map from './Map'
@@ -11,7 +12,7 @@ import Todo from './Todos';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Todo />
+    <Falcon />
   </React.StrictMode>,
   document.getElementById('root')
 );

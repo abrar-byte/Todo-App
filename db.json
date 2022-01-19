@@ -1,38 +1,88 @@
 {
   "posts": [
     {
-      "label": "Dewangga",
-      "status": "draft",
-      "id": 1
+      "sort": 1,
+      "label": "Egy MV ",
+      "group": "draft",
+      "id": 1,
+      "time": 1642574178733
     },
     {
-      "label": "Arhan",
-      "status": "draft",
-      "id": 2
-    },
-    {
-      "label": "Nadeo",
-      "status": "draft",
-      "id": 3
-    },
-    {
-      "label": "Lord Dedik",
-      "status": "done",
-      "id": 4
-    },
-    {
-      "label": "Egy MV",
-      "status": "draft",
-      "id": 5
-    },
-    {
+      "sort": 2,
       "label": "Syahrian Abimanyu",
-      "status": "done",
-      "id": 6
+      "group": "review",
+      "id": 2,
+      "time": 1642502319881
+    },
+    {
+      "label": "Ahmad Cristiano",
+      "group": "done",
+      "sort": 3,
+      "id": 3,
+      "time": 1642573345209
+    },
+    {
+      "label": "Muhammad",
+      "group": "done",
+      "sort": 4,
+      "id": 4,
+      "time": 1642574181247
+    },
+    {
+      "label": "Coba",
+      "group": "draft",
+      "sort": 5,
+      "id": 5,
+      "time": 1642573329729
+    },
+    {
+      "label": "sdfsdf",
+      "group": "draft",
+      "sort": 6,
+      "id": 6,
+      "time": 1642573331821
+    },
+    {
+      "label": "coba",
+      "group": "done",
+      "sort": 7,
+      "id": 7
     }
   ],
   "comments": [],
   "profile": {
     "name": "typicode"
-  }
+  },
+  "groups": [
+    {
+      "name": "draft",
+      "id": 1,
+      "sort": 2
+    },
+    {
+      "name": "done",
+      "id": 2,
+      "sort": 5
+    },
+    {
+      "name": "review",
+      "id": 3,
+      "sort": 4
+    },
+    {
+      "name": "halo",
+      "sort": 6,
+      "id": 4
+    },
+    {
+      "name": "baru",
+      "id": 5,
+      "sort": 3
+    },
+    {
+      "name": "COBA",
+      "sort": 1,
+      "id": 6
+    }
+  ]
 }
