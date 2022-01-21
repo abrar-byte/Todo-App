@@ -3,7 +3,7 @@ import { HiPlus } from "react-icons/hi";
 import { MdDelete, MdSaveAlt } from "react-icons/md";
 
 import axios from "axios";
-import { IoMdArrowRoundForward, IoMdArrowRoundBack } from "react-icons/io";
+import { IoMdArrowRoundForward } from "react-icons/io";
 
 const API_URL = "http://localhost:4000";
 function Falcon() {
@@ -34,51 +34,56 @@ function Falcon() {
   }, []);
 
 
-  const coba = async (ifrom, ito) => {
+  // const coba = async (ifrom, ito) => {
 
-    const from = groups[ifrom]
-    const to = groups[ito]
+  //   const from = groups[ifrom]
+  //   const to = groups[ito]
+  //   console.log(ifrom);
+  //   console.log(from);
 
-    if (ifrom < ito) {
-      for (let index = 0; index < groups.length; index++) {
-        if (groups[index].sort <= to.sort && groups[index].sort > from.sort && index !== ifrom) {
-          const payload = { sort: groups[index].sort - 1 };
+  //   if (ifrom < ito) {
+  //     for (let index = 0; index < groups.length; index++) {
+  //       console.log(groups[index],"satu");
+  //       if (groups[index].sort <= to.sort && groups[index].sort > from.sort && index !== ifrom) {
+  //         const payload = { sort: groups[index].sort - 1 };
 
-          await axios.patch(`${API_URL}/groups/${groups[index].id}`, payload, {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          });
+  //         await axios.patch(`${API_URL}/groups/${groups[index].id}`, payload, {
+  //           headers: {
+  //             "Content-Type": "application/json",
+  //           },
+  //         });
 
-          console.log("index", index);
-        }
+  //         console.log("index", index);
+  //       }
 
-      }
-    } else {
-      for (let index = 0; index < groups.length; index++) {
-        if (groups[index].sort >= to.sort && groups[index].sort < from.sort && index !== ifrom) {
-          const payload = { sort: groups[index].sort + 1 };
+  //     }
+  //   } else {
+  //     for (let index = 0; index < groups.length; index++) {
+  //       console.log(groups[index],"dua dua");
 
-          await axios.patch(`${API_URL}/groups/${groups[index].id}`, payload, {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          });
+  //       if (groups[index].sort >= to.sort && groups[index].sort < from.sort && index !== ifrom) {
+  //         const payload = { sort: groups[index].sort + 1 };
 
-          console.log("index", index);
-        }
+  //         await axios.patch(`${API_URL}/groups/${groups[index].id}`, payload, {
+  //           headers: {
+  //             "Content-Type": "application/json",
+  //           },
+  //         });
 
-      }
-    }
+  //         console.log("index", index);
+  //       }
+
+  //     }
+  //   }
 
 
-    axios.patch(`${API_URL}/groups/${from.id}`, { sort: to.sort }, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    getData();
-  };
+  //   axios.patch(`${API_URL}/groups/${from.id}`, { sort: to.sort }, {
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   });
+  //   getData();
+  // };
   const handleSubmit = (e, gname) => {
     e.preventDefault();
     const label = e.target.label.value;
@@ -129,6 +134,7 @@ function Falcon() {
       axios.patch(`${API_URL}/posts/${x.id}`, payload).then(() => {
         getData();
       });
+      gantiedit("")
     }
   };
 
@@ -140,7 +146,10 @@ function Falcon() {
     });
   };
 
-  const onDrop = (e, tujuan) => {
+ 
+
+
+  const onDrop = async (e, tujuan,i) => {
     const dataCard = e.dataTransfer.getData("card")
     const dataGroup = e.dataTransfer.getData("group")
     let card = dataCard ? JSON.parse(dataCard) : null
@@ -155,12 +164,50 @@ function Falcon() {
       console.log('drop group')
       console.log('tujuan', tujuan)
       console.log('sumber', sumber)
-      axios.patch(`${API_URL}/groups/${sumber.id}`, {sort: tujuan.sort}).then(() => {
-        getData();
-      });
-      axios.patch(`${API_URL}/groups/${tujuan.id}`, {sort: sumber.sort}).then(() => {
-        getData();
-      });
+      console.log(i, "index tujuan");
+      console.log(sumber.index, "sumber index"); 
+    if (sumber.index < i) {
+      for (let index = 0; index < groups.length; index++) {
+        console.log(groups[index],"satu");
+        if (groups[index].sort <= tujuan.sort && groups[index].sort > sumber.sort && index !== sumber.index) {
+          console.log("patch minus");
+          const payload = { sort: groups[index].sort - 1 };
+            
+          await  axios.patch(`${API_URL}/groups/${groups[index].id}`, payload, {
+              headers: {
+                "Content-Type": "application/json",
+              },
+            });
+          
+        }
+
+      }
+    } else if (sumber.index > i){
+      for (let index = 0; index < groups.length; index++) {
+        console.log(groups[index],"dua");
+
+        if (groups[index].sort >= tujuan.sort && groups[index].sort < sumber.sort && index !== sumber.index) {
+          console.log("patch plus");
+
+          const payload = { sort: groups[index].sort + 1 };
+            
+          await  axios.patch(`${API_URL}/groups/${groups[index].id}`, payload, {
+              headers: {
+                "Content-Type": "application/json",
+              },
+  
+            });
+
+        }
+
+      }}
+     await axios.patch(`${API_URL}/groups/${sumber.id}`, { sort: tujuan.sort }, {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+          getData();
+     
     }
   };
 
@@ -168,8 +215,9 @@ function Falcon() {
     e.dataTransfer.setData("card", JSON.stringify(data));
   };
 
-  const onDragGroup = (e, data) => {
-    e.dataTransfer.setData("group", JSON.stringify(data));
+  const onDragGroup = (e, data,i) => {
+    e.dataTransfer.setData("group", JSON.stringify({ ...data, index: i }));
+    console.log(i,"index sumber awal");
   };
 
 
@@ -180,6 +228,7 @@ function Falcon() {
       <h1 className="text-center font-extrabold text-4xl text-teal-500">
         FAKE TRELLO
       </h1>
+    
 
       <div className="flex flex-row space-x-5">
         {groups?.map((g, index) => (
@@ -187,20 +236,12 @@ function Falcon() {
             className="p-10 w-full cursor-pointer bg-gray-500"
             style={{ minWidth: "24rem" }}
             draggable
-            onDragStart={(e) => onDragGroup(e, g)}
-            onDrop={(e) => onDrop(e, g)}
+            onDragStart={(e) => onDragGroup(e, g,index)}
+            onDrop={(e) => onDrop(e, g,index)}
             onDragOver={(e) => e.preventDefault()}
           >
-            {g.name}
-            {/* {groups.map((v, i) => (
-              <button
-                onClick={() => coba(index, i)}
-                className="rounded-md border bg-yellow-200 px-1"
-              >
-                {v.sort}
-              </button>
-
-            ))} */}
+            {g.id}-{g.name}-{g.sort}
+        
             <div className="text-xl text-gray-500">{g.sort} - {g.name}</div>
 
             <div className="space-y-5 m-5 w-full">

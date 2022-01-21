@@ -3,50 +3,51 @@
     {
       "sort": 1,
       "label": "Egy MV ",
-      "group": "draft",
-      "id": 1,
-      "time": 1642579364486
-    },
-    {
-      "sort": 2,
-      "label": "Syahrian Abimanyu",
       "group": "review",
-      "id": 2,
-      "time": 1642579520462
+      "id": 1,
+      "time": 1642747290476
     },
     {
-      "label": "Ahmad Cristiano",
-      "group": "done",
+      "label": "Shin Tae Yong",
+      "group": "review",
+      "sort": 2,
+      "id": 2
+    },
+    {
+      "label": "Asnawi Mangku Alam",
+      "group": "draft",
       "sort": 3,
-      "id": 3,
-      "time": 1642573345209
+      "id": 3
     },
     {
-      "label": "Muhammad",
-      "group": "done",
+      "label": "Dewangga",
+      "group": "draft",
       "sort": 4,
-      "id": 4,
-      "time": 1642579613415
+      "id": 4
     },
     {
-      "label": "Coba",
+      "label": "Ricky Kambuaya",
       "group": "draft",
       "sort": 5,
-      "id": 5,
-      "time": 1642578895678
+      "id": 5
     },
     {
-      "label": "sdfsdf",
-      "group": "COBA",
+      "label": "Dedik Setiawan",
+      "group": "baru",
       "sort": 6,
-      "id": 6,
-      "time": 1642578699192
+      "id": 6
     },
     {
-      "label": "coba",
+      "label": "Witan Sulaiman",
       "group": "done",
       "sort": 7,
       "id": 7
+    },
+    {
+      "label": "Pratama Arhan",
+      "group": "done",
+      "sort": 8,
+      "id": 8
     }
   ],
   "comments": [],
@@ -57,32 +58,22 @@
     {
       "name": "draft",
       "id": 1,
-      "sort": 1
+      "sort": 2
     },
     {
       "name": "done",
       "id": 2,
-      "sort": 3
+      "sort": 4
     },
     {
       "name": "review",
       "id": 3,
-      "sort": 2
-    },
-    {
-      "name": "halo",
-      "sort": 4,
-      "id": 4
+      "sort": 1
     },
     {
       "name": "baru",
-      "id": 5,
-      "sort": 5
-    },
-    {
-      "name": "COBA",
-      "sort": 6,
-      "id": 6
+      "sort": 3,
+      "id": 4
     }
   ]
 }
