@@ -1,164 +1,178 @@
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
-import { v4 as uuidv4 } from "uuid";
+import { useEffect, useRef, useState } from "react";
+import { HiPlus } from "react-icons/hi";
+import { MdDelete, MdSaveAlt } from "react-icons/md";
 
-export default function App() {
-  const { register, handleSubmit, reset } = useForm();
-  const [todos, setTodos] = useState([]);
-  const [done, setDone] = useState([]);
-  const [editTodo, setEditTodo] = useState(null);
-  const [group, setGroup] = useState([]);
+function App() {
+  const todoinputref = useRef();
+  const [todo, setTodo] = useState([]);
+  const [edit, setEdit] = useState("");
 
-  // const clr = editTodo && 'focus:ring-2 focus:ring-blue-600'   
-  
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const label = e.target.label.value;
+    const newTodo = [...todo];
+    newTodo.push({ label, status: "draft" });
+    setTodo(newTodo);
 
-  const updateTodo = (todo, id) => {
-    const newTodo = todos.map((tod) => (tod.id === id ? todo : tod));
-    newTodo.id = id;
-    setTodos(newTodo);
-    setEditTodo("");
+    e.target.label.value = "";
   };
 
-  const onSubmit = (values) => {
-    if (!editTodo) {
-      const dataBaru = JSON.parse(JSON.stringify(todos));
-      const obj = values;
-      obj.id = uuidv4();
-      dataBaru.push(obj);
-      setTodos(dataBaru);
-      console.log(dataBaru);
-      reset();
-    } else {
-      updateTodo(values, editTodo.id);
-      reset()
+  const checktodo = (e, i) => {
+    const newTodo = [...todo];
+    if (e.target.checked) {
+      newTodo[i].status = "done";
+      setTodo(newTodo);
     }
   };
 
-  const move = (values, i, x) => {
-    if(x === 4 - 0){
-    const dataBaru = JSON.parse(JSON.stringify(done));
-    dataBaru.push(values);
-    setDone(dataBaru);
-    todos.splice(i, 1);}else{  const dataBaru = JSON.parse(JSON.stringify(todos));
-      dataBaru.push(values);
-      setTodos(dataBaru);
-      done.splice(i, 1);
-
+  const checkdraft = (e, i) => {
+    const newTodo = [...todo];
+    if (e.target.checked) {
+      newTodo[i].status = "draft";
+      setTodo(newTodo);
     }
   };
-  const deleteInput = async (i,x) => {
-    if(x === "as simple as that"){
-    const data = JSON.parse(JSON.stringify(todos));
-    await data.splice(i, 1);
-    setTodos(data);
-    } else {
-      const data = JSON.parse(JSON.stringify(done));
-      data.splice(i, 1);
-      setDone(data);
+
+  const handleOnChange = (e, i) => {
+    const newTodo = [...todo];
+    newTodo[i].label = e.target.value;
+    setEdit(e.target.value);
+    console.log(setEdit);
+  };
+
+  const handleEdit = (x, i) => {
+    const newTodo = [...todo];
+
+    if (edit) {
     }
   };
- 
-  
-  const handleEdit = ({ id }) => {
-    const findTodo = todos.find((todo) => todo.id === id);
-    setEditTodo(findTodo);
-    alert("Edit di input yang tersedia 🔪️ ");
-   
 
+  const onDelete = (e, i) => {
+    const newTodo = [...todo];
+    newTodo.splice(i, 1);
+    setTodo(newTodo);
   };
-  
 
   return (
-    <div className="bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500 h-screen">
-    <div className="container mx-auto px-6 h-96 max-w-4xl bg-red-300	 overflow-y-auto">
-      <h1 className=" font-extrabold text-4xl uppercase text-center mb-5 text-zinc-900 ">
+    <div>
+      <h1 className="text-center font-extrabold text-4xl text-blue-400 p-5">
         TODO LIST
       </h1>
-      <div className="grid grid-cols-2 ">
-        <div className=" text-center font-bold  ">
-          <h2 className="uppercase mb-5">Todo List</h2>
-
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <label className="font-bold uppercase  mb-7">
-              Tambah{" "}
-            </label>
-            <br />
-            <input
-              autoFocus
-              required
-              type="text"
-              placeholder="write as you like
-              ! 😉️"
-              {...register("title")}
-              // className={`${clr} border border-black box-border  rounded  mb-5 mr-2 px-1`}
-              className="border border-black box-border  rounded  mb-5 mr-2 px-1" 
-            />
-            <button
-              type="submit"
-              className="w-auto px-5 rounded-lg bg-green-500 "
-            >
-              Submit
-            </button>
-          </form>
-
-          {todos.map((item, i) => {
-            console.log(item, "mapping");
-            return (
-              <div
-                key={i}
-                className="flex border border-black box-border mb-5 mx-2"
-              >
-                <h1 className="flex-grow">{item.title}</h1>
-                <button
-                  onClick={() => move(item, i,4-0)}
-                  className=" rounded-md bg-green-500 mr-2 text-xs px-1"
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+        <div
+          className="p-10 mx-auto w-full"
+          onDrop={(e) => {
+            let value = JSON.parse(e.dataTransfer.getData("done"));
+            const newTodo = [...todo];
+            newTodo[value.index].status = "draft";
+            setTodo(newTodo);
+          }}
+          onDragOver={(e) => e.preventDefault()}
+        >
+          <div className="text-xl text-green-700">Todo</div>
+          <form className="space-y-5 m-5 w-full" onSubmit={handleSubmit}>
+            {todo.map((x, i) => {
+              return x.status === "draft" ? (
+                <div
+                  key={i}
+                  draggable
+                  onDragStart={(e) =>
+                    e.dataTransfer.setData(
+                      "draft",
+                      JSON.stringify({ ...x, index: i })
+                    )
+                  }
+                  className="flex items-center space-x-3 border border-blue-800 px-4 py-2 rounded"
                 >
-                  ✔️
-                </button>
+                  <input
+                    className="p-2 focus:outline-none"
+                    type="checkbox"
+                    onChange={(e) => checktodo(e, i)}
+                  />
 
-                <button
-                  onClick={() => handleEdit(item)}
-                  className="rounded-md bg-yellow-200	 mr-2 text-xs px-1"
-                >
-                  ✏️
-                </button>
-                <button
-                  onClick={() => deleteInput(i,"as simple as that")}
-                  className="rounded-md bg-gray-500	  text-xs px-1 "
-                >
-                  ❌️
-                </button>
-              </div>
-            );
-          })}
-        </div>
-        <div className="text-center font-bold  ">
-          <h2 className="uppercase mb-5">Done</h2>
+                  <input
+                    type="text"
+                    onChange={(e) => handleOnChange(e, i)}
+                    value={x.label}
+                    className="w-full p-2 focus:outline-none"
+                  />
 
-          {done.map((item, i) => (
-            <div
-              key={i}
-              className="flex border border-black box-border mx-2 mb-5"
-            >
-              <h1 className="flex-grow">{item.title}</h1>
-              <button
-                onClick={() => move(item, i, 5-0)}
-                className="rounded-md bg-green-500 mr-2 text-xs px-1"
-              >
-                ⬅️
-              </button>
-              <button
-                onClick={() => deleteInput(i,"halo ges david di sini")}
-                className="rounded-md bg-gray-500	  text-xs px-1"
-              >
-                {" "}
-                ❌️
+                  {/* Pake cara object asign */}
+                  <MdDelete
+                    onClick={(e) => onDelete(e, i)}
+                    className="hover:text-red-700"
+                    role="button"
+                  />
+                </div>
+              ) : null;
+            })}
+            <div className="flex items-center space-x-3 border border-gray-300 px-4 py-2 rounded">
+              <HiPlus />
+              <input
+                ref={todoinputref}
+                required
+                autoComplete="off"
+                name="label"
+                type="text"
+                className="w-full outline-0 p-2 focus:outline-none"
+                placeholder="Write as You Like 🔪️"
+              />
+              <button type="submit" className="hover:text-red-700">
+                Save
               </button>
             </div>
-          ))}
+          </form>
+        </div>
+        <div
+          className="p-10 mx-auto w-full"
+          onDrop={(e) => {
+            let value = JSON.parse(e.dataTransfer.getData("draft"));
+            const newTodo = [...todo];
+            newTodo[value.index].status = "done";
+            setTodo(newTodo);
+          }}
+          onDragOver={(e) => e.preventDefault()}
+        >
+          <div className="text-xl text-green-700">Done</div>
+          <div className="space-y-5 m-5 w-full">
+            {todo.map((x, i) => {
+              return x.status === "done" ? (
+                <div
+                  key={i}
+                  draggable
+                  onDragStart={(e) =>
+                    e.dataTransfer.setData(
+                      "done",
+                      JSON.stringify({ ...x, index: i })
+                    )
+                  }
+                  className="flex items-center space-x-3 border border-gray-300 px-4 py-2 rounded"
+                >
+                  <input
+                    className="p-2 focus:outline-none "
+                    type="checkbox"
+                    onChange={(e) => checkdraft(e, i)}
+                  />
+                  <input
+                    type="text"
+                    onChange={(e) => handleOnChange(e, i)}
+                    value={x.label}
+                    className="w-full p-2 focus:outline-none "
+                  />
+
+                  <MdDelete
+                    onClick={(e) => onDelete(e, i)}
+                    className="hover:text-red-700"
+                    role="button"
+                  />
+                </div>
+              ) : null;
+            })}
+          </div>
         </div>
       </div>
     </div>
-    </div>
   );
 }
+
+export default App;

@@ -3,11 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import Falcon from './Falcon';
 import './index.css';
-import Todos from './newTodo';
-// import Map from './Map'
 import reportWebVitals from './reportWebVitals';
-// import Rapot from './Rapot';
-import Todo from './Todos';
 
 
 ReactDOM.render(

@@ -5,7 +5,7 @@ import { MdDelete, MdSaveAlt } from "react-icons/md";
 import axios from "axios";
 import { IoMdArrowRoundForward } from "react-icons/io";
 
-const API_URL = "http://localhost:4000";
+const API_URL = "http://206.189.153.60:4000";
 function Falcon() {
   const todoinputref = useRef();
   const [todo, gantitodo] = useState([]);
