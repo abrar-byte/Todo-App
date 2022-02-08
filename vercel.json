@@ -1,7 +1,7 @@
 {
   "headers": [
     {
-      "source": "206.189.153.60:4000/(*)",
+      "source": "206.189.153.60/(.*)",
       "headers": [
         { "key": "Access-Control-Allow-Credentials", "value": "true" },
         { "key": "Access-Control-Allow-Origin", "value": "*" },
